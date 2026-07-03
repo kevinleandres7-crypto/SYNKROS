@@ -1,0 +1,21 @@
+{
+  "name": "synkros-integraciones-sensores",
+  "version": "1.0.0",
+  "description": "Módulo 4 de SYNKROS: persistencia, sincronización con Google Calendar y geofencing.",
+  "scripts": {
+    "test": "vitest run",
+    "build": "tsc"
+  },
+  "dependencies": {
+    "express": "^4.22.2",
+    "googleapis": "^140.0.1",
+    "pg": "^8.22.0"
+  },
+  "devDependencies": {
+    "@types/express": "^4.17.25",
+    "@types/node": "^20.19.43",
+    "@types/pg": "^8.20.0",
+    "typescript": "^5.9.3",
+    "vitest": "^2.1.9"
+  }
+}

@@ -1,0 +1,10 @@
+node_modules/
+expo-debug.log
+npm-debug.log
+*.log
+.DS_Store
+.vscode/
+android/.gradle/
+android/app/build/
+android/build/
+ios/build/

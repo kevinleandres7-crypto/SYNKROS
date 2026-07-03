@@ -1,0 +1,16 @@
+{
+  "name": "synkros-core-engine",
+  "version": "1.0.0",
+  "description": "Módulo 3 de SYNKROS: algoritmo de reorganización dinámica (core engine).",
+  "scripts": {
+    "demo": "tsx demo.ts",
+    "test": "vitest run",
+    "build": "tsc"
+  },
+  "devDependencies": {
+    "@types/node": "^20.19.43",
+    "tsx": "^4.22.5",
+    "typescript": "^5.9.3",
+    "vitest": "^2.1.9"
+  }
+}

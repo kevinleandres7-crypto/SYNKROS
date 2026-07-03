@@ -1,0 +1,25 @@
+{
+  "name": "synkros-motor-conversacional",
+  "version": "1.0.0",
+  "description": "Módulo 2 de SYNKROS: motor conversacional y extracción de intención.",
+  "main": "server.ts",
+  "scripts": {
+    "dev": "tsx watch server.ts",
+    "start": "node dist/server.js",
+    "build": "tsc",
+    "example": "tsx examples/run-example.ts",
+    "test": "vitest run"
+  },
+  "dependencies": {
+    "express": "^4.22.2",
+    "openai": "^4.104.0",
+    "zod": "^3.25.76"
+  },
+  "devDependencies": {
+    "@types/express": "^4.17.25",
+    "@types/node": "^20.19.43",
+    "tsx": "^4.22.5",
+    "typescript": "^5.9.3",
+    "vitest": "^2.1.9"
+  }
+}
