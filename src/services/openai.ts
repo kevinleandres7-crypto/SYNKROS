@@ -1,9 +1,8 @@
 import OpenAI from 'openai';
 import { ChatMessage } from '../types';
-import Constants from 'expo-constants';
 
 const openai = new OpenAI({
-  apiKey: Constants.expoConfig?.extra?.openaiApiKey || '',
+  apiKey: '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',
 });
 
 export async function chatWithAI(
