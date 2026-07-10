@@ -4,6 +4,7 @@
     "slug": "synkros",
     "version": "1.0.0",
     "orientation": "portrait",
+    "icon": "./assets/logo_synkros.png",
     "userInterfaceStyle": "dark",
     "splash": {
       "backgroundColor": "#0a0a0f"
@@ -37,7 +38,7 @@
       "supabaseUrl": "https://ezcqewagqviyoupnftb.supabase.co",
       "supabaseAnonKey": "sb_publishable_4lbRBl9eGH2g1nNVLVHP-A_e7KbHS6Y",
       "eas": {
-        "projectId": "fe39f000-53f3-4a7b-bbca-e6471882639e"
+        "projectId": "4afc1fc9-f71f-4ded-83e2-e3de6bafd828"
       }
     },
     "owner": "kevinleandres"
