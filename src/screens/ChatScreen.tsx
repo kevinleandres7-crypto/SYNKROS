@@ -9,6 +9,7 @@ import {
   KeyboardAvoidingView,
   Platform,
   ActivityIndicator,
+  Alert,
 } from 'react-native';
 import { Audio } from 'expo-av';
 import { chatWithAI } from '../services/openai';
@@ -27,10 +28,18 @@ export default function ChatScreen() {
   const recordingRef = useRef<Audio.Recording | null>(null);
 
   useEffect(() => {
-    setupAudio();
+    try {
+      setupAudio();
+    } catch (error) {
+      Alert.alert('Error de Audio', 'No se pudo inicializar el audio. Algunas funciones pueden no estar disponibles.');
+    }
     return () => {
-      if (recordingRef.current) {
-        recordingRef.current.stopAndUnloadAsync();
+      try {
+        if (recordingRef.current) {
+          recordingRef.current.stopAndUnloadAsync();
+        }
+      } catch (error) {
+        console.error('Error cleaning up audio:', error);
       }
     };
   }, []);
@@ -102,22 +111,27 @@ export default function ChatScreen() {
         const { name, arguments: args } = response.function_call;
         let functionResult;
 
-        switch (name) {
-          case 'createEvent':
-            functionResult = await createEvent(
-              'user-id-placeholder',
-              args.title,
-              args.start_time,
-              args.end_time,
-              args.description
-            );
-            break;
-          case 'updateEvent':
-            functionResult = await updateEvent(args.id, args);
-            break;
-          case 'deleteEvent':
-            functionResult = await deleteEvent(args.id);
-            break;
+        try {
+          switch (name) {
+            case 'createEvent':
+              functionResult = await createEvent(
+                'user-id-placeholder',
+                args.title,
+                args.start_time,
+                args.end_time,
+                args.description
+              );
+              break;
+            case 'updateEvent':
+              functionResult = await updateEvent(args.id, args);
+              break;
+            case 'deleteEvent':
+              functionResult = await deleteEvent(args.id);
+              break;
+          }
+        } catch (functionError: any) {
+          console.error('Function execution error:', functionError);
+          functionResult = { error: functionError.message || 'Error al ejecutar función' };
         }
 
         const followUpResponse = await chatWithAI(
@@ -144,8 +158,9 @@ export default function ChatScreen() {
       }
 
       setVoiceState({ ...voiceState, isThinking: false });
-    } catch (error) {
+    } catch (error: any) {
       console.error('Failed to send message:', error);
+      Alert.alert('Error', error.message || 'No se pudo procesar tu mensaje. Por favor intenta nuevamente.');
       setVoiceState({ ...voiceState, isThinking: false });
     }
   };

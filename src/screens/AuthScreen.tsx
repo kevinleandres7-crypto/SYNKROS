@@ -9,8 +9,10 @@ import {
   Platform,
   ScrollView,
   ActivityIndicator,
+  Alert,
 } from 'react-native';
 import { useRouter } from 'expo-router';
+import { supabase } from '../services/supabase';
 
 export default function AuthScreen() {
   const router = useRouter();
@@ -21,12 +23,51 @@ export default function AuthScreen() {
   const [loading, setLoading] = useState(false);
 
   const handleAuth = async () => {
+    if (!email || !password) {
+      Alert.alert('Error', 'Por favor completa todos los campos requeridos');
+      return;
+    }
+
+    if (!isLogin && !name) {
+      Alert.alert('Error', 'Por favor ingresa tu nombre completo');
+      return;
+    }
+
     setLoading(true);
-    // TODO: Implement actual authentication with Supabase
-    setTimeout(() => {
-      setLoading(false);
+
+    try {
+      if (isLogin) {
+        const { error } = await supabase.auth.signInWithPassword({
+          email,
+          password,
+        });
+
+        if (error) {
+          throw error;
+        }
+      } else {
+        const { error } = await supabase.auth.signUp({
+          email,
+          password,
+          options: {
+            data: {
+              display_name: name,
+            },
+          },
+        });
+
+        if (error) {
+          throw error;
+        }
+      }
+
+      // Navigate to tabs on success
       router.replace('/(tabs)');
-    }, 1500);
+    } catch (error: any) {
+      Alert.alert('Error de Autenticación', error.message || 'Ocurrió un error inesperado');
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
