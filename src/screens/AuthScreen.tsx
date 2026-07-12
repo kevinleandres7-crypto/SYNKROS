@@ -72,15 +72,22 @@ export default function AuthScreen() {
 
   const runDiagnostics = async () => {
     try {
-      const testUrl = 'https://ezcqewagqviyoupnftb.supabase.co';
-      Alert.alert("Starting Test", `Pinging: ${testUrl}`);
-      const res = await fetch(testUrl);
-      Alert.alert("Network Success", `Status: ${res.status}. The network IS working.`);
+      Alert.alert("Phase 1", "Pinging Google to test raw internet access...");
+      await fetch('https://www.google.com');
+
+      Alert.alert("Phase 2", "Google reached! App is online. Now testing Supabase API...");
+      // We add the rest/v1 path to ensure it doesn't fail on a root URL request
+      const response = await fetch('https://ezcqewagqviyoupnftb.supabase.co/rest/v1/', {
+        method: 'GET',
+        headers: {
+          apikey: 'sb_publishable_4lbRBl9eGH2g1nNVLVHP-A_e7KbHS6Y',
+          Authorization: 'Bearer sb_publishable_4lbRBl9eGH2g1nNVLVHP-A_e7KbHS6Y' 
+        }
+      });
+
+      Alert.alert("Total Success", `Supabase reached! Status: ${response.status}`);
     } catch (error: any) {
-      Alert.alert(
-        "Native Fetch Error (Root Cause)", 
-        `Message: ${error.message || error}\nStringified: ${JSON.stringify(error)}` 
-      );
+      Alert.alert("Critical Network Failure", `Error: ${error.message || error}\nIf you only see this, the app is 100% blocked from the internet.`);
     }
   };
 
