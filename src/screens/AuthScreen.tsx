@@ -70,6 +70,20 @@ export default function AuthScreen() {
     }
   };
 
+  const runDiagnostics = async () => {
+    try {
+      const testUrl = 'https://ezcqewagqviyoupnftb.supabase.co';
+      Alert.alert("Starting Test", `Pinging: ${testUrl}`);
+      const res = await fetch(testUrl);
+      Alert.alert("Network Success", `Status: ${res.status}. The network IS working.`);
+    } catch (error: any) {
+      Alert.alert(
+        "Native Fetch Error (Root Cause)", 
+        `Message: ${error.message || error}\nStringified: ${JSON.stringify(error)}` 
+      );
+    }
+  };
+
   return (
     <KeyboardAvoidingView
       style={styles.container}
@@ -116,6 +130,13 @@ export default function AuthScreen() {
             onChangeText={setPassword}
             secureTextEntry
           />
+
+          <TouchableOpacity
+            style={styles.diagnosticsButton}
+            onPress={runDiagnostics}
+          >
+            <Text style={styles.diagnosticsButtonText}>TEST DIAGNOSTICS</Text>
+          </TouchableOpacity>
 
           <TouchableOpacity
             style={styles.button}
@@ -217,6 +238,19 @@ const styles = StyleSheet.create({
   buttonText: {
     color: '#0a0a0f',
     fontSize: 16,
+    fontWeight: 'bold',
+  },
+  diagnosticsButton: {
+    backgroundColor: '#ff6b6b',
+    borderRadius: 12,
+    padding: 16,
+    alignItems: 'center',
+    marginTop: 8,
+    marginBottom: 8,
+  },
+  diagnosticsButtonText: {
+    color: '#ffffff',
+    fontSize: 14,
     fontWeight: 'bold',
   },
   switchButton: {
