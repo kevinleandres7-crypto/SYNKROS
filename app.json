@@ -17,8 +17,7 @@
       "bundleIdentifier": "com.synkros.app"
     },
     "android": {
-      "package": "com.synkros.app",
-      "usesCleartextTraffic": true
+      "package": "com.synkros.app"
     },
     "web": {},
     "plugins": [
