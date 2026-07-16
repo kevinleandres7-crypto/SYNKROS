@@ -17,7 +17,11 @@
       "bundleIdentifier": "com.synkros.app"
     },
     "android": {
-      "package": "com.synkros.app"
+      "package": "com.synkros.app",
+      "permissions": [
+        "INTERNET",
+        "ACCESS_NETWORK_STATE"
+      ]
     },
     "web": {},
     "plugins": [
